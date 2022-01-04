@@ -1,13 +1,19 @@
-var points = 260;
+var points = 120;
+var col;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
+  col = color(0,0,0);
+}
+
+function mouseMoved(){
+  col = color(random(0,255),random(0,255),random(0,255));
 }
 
 function draw() {
   //background(220, 110, 55);
   //points = noise(mouseX,mouseY)*360;
-stroke(random(0,255),random(0,255),random(0,255));
+stroke(col);
   corona();
 }
 
