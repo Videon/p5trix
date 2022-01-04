@@ -1,8 +1,8 @@
-var points = 120;
+var points = 240;
 var col;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight);
   col = color(0,0,0);
 }
 
@@ -18,7 +18,7 @@ stroke(col);
 }
 
 function corona() {
-  var midPoint = createVector(mouseX-windowWidth/2, mouseY-windowHeight/2);
+  var midPoint = createVector(mouseX, mouseY);
   var startPoints = [];
   var endPoints = [];
   startPoints.length = points;
