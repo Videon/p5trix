@@ -1,8 +1,17 @@
+var canvas;
 var points = 240;
 var col;
 
+function windowResized(){
+  resizeCanvas(windowWidth,windowHeight);
+}
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  //CANVAS
+  canvas = createCanvas(windowWidth, windowHeight);
+  canvas.position(0,0);
+  canvas.style('z-index','-1');
+
   col = color(0,0,0);
 }
 
