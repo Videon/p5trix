@@ -31,6 +31,7 @@ function setup() {
   skyTop = color(120, 160, 220);
   skyBot = color(20, 20, 120);
 
+  //WAVES
   waveSize = windowWidth / WAVES;
 }
 
