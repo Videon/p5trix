@@ -28,7 +28,6 @@ function windowResized() {
 
 function mouseClicked(){
   bgcolor = color(270, random(0, 255), random(0, 255));
-  background(bgcolor);
 }
 
 function setup() {
@@ -56,7 +55,7 @@ function setup() {
 
 function draw() {
   //BACKGROUND
-  //background(bgcolor);
+  background(bgcolor);
 
   //LINES
   for (var i = 0; i < dls.length; i++) {
@@ -110,7 +109,7 @@ function DynamicLine(originX, originY, targetX, targetY, segments, zpos) {
     lc = lerpColor(bgcolor, c, this.zpos / lines);
 
     stroke(lc);
-    strokeWeight(10);
+    strokeWeight(11);
 
     for (var i = 0; i < this.points.length - 1; i++) {
       line(this.pointsT[i].x, this.pointsT[i].y, this.pointsT[i + 1].x, this.pointsT[i + 1].y);
