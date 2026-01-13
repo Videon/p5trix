@@ -1,18 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>p5.js sketches</title>
+  <style>
+    :root { color-scheme: light dark; }
 
-    <title>Sketch</title>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    /* Fullscreen sketch behind */
+    #sketchFrame {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      border: 0;
+      z-index: 0;
+    }
 
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-  </head>
+    /* UI overlay */
+    #ui {
+      position: fixed;
+      inset: 0;
+      padding: 2rem;
+      z-index: 2;
 
-  <body>
-    <script src="sketch.js"></script>
-  </body>
+      /* Let mouse/touch pass through overlay... */
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0 0 1rem 0;
+      /* Header does not block input */
+      pointer-events: none;
+    }
+
+    /* Links row that wraps */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      display: flex;
+      flex-wrap: wrap;   /* <- wraps to next line */
+      gap: 0.6rem;
+      max-width: 80rem;
+    }
+
+    li { margin: 0; padding: 0; }
+
+    a.sketch-link {
+      /* ...except the bubbles, which remain clickable */
+      pointer-events: auto;
+
+      display: inline-block;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(127,127,127,0.35);
+      border-radius: 999px;
+      text-decoration: none;
+
+      background: rgba(20, 20, 20, 0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    a.sketch-link:hover {
+      border-color: rgba(127,127,127,0.75);
+    }
+
+    a.sketch-link.active {
+      border-color: rgba(127,127,127,0.95);
+      background: rgba(20, 20, 20, 0.55);
+    }
+  </style>
+</head>
+
+<body>
+<!-- Sketch runs behind the UI -->
+<iframe id="sketchFrame" title="p5 sketch" src=""></iframe>
+
+<!-- UI on top -->
+<div id="ui">
+  <h1>p5trix</h1>
+
+  <ul>
+    <li><a class="sketch-link" data-sketch="aaplsauc" href="./aaplsauc/index.html">aaplsauc</a></li>
+    <li><a class="sketch-link" data-sketch="beadsinspace" href="./beadsinspace/index.html">beadsinspace</a></li>
+    <li><a class="sketch-link" data-sketch="dontclear" href="./dontclear/index.html">dontclear</a></li>
+    <li><a class="sketch-link" data-sketch="drople" href="./drople/index.html">drople</a></li>
+    <li><a class="sketch-link" data-sketch="eetreetreetr" href="./eetreetreetr/index.html">eetreetreetr</a></li>
+    <li><a class="sketch-link" data-sketch="flowberg" href="./flowberg/index.html">flowberg</a></li>
+    <li><a class="sketch-link" data-sketch="keyholesimulator" href="./keyholesimulator/index.html">keyholesimulator</a></li>
+    <li><a class="sketch-link" data-sketch="lliines" href="./lliines/index.html">lliines</a></li>
+    <li><a class="sketch-link" data-sketch="monttt" href="./monttt/index.html">monttt</a></li>
+    <li><a class="sketch-link" data-sketch="rogue" href="./rogue/index.html">rogue</a></li>
+    <li><a class="sketch-link" data-sketch="sevenwaves" href="./sevenwaves/index.html">sevenwaves</a></li>
+    <li><a class="sketch-link" data-sketch="woosh" href="./woosh/index.html">woosh</a></li>
+  </ul>
+</div>
+
+<script>
+  const frame = document.getElementById("sketchFrame");
+  const links = Array.from(document.querySelectorAll("a.sketch-link"));
+
+  function setSketch(name) {
+    frame.src = `./${name}/index.html`;
+    links.forEach(a => a.classList.toggle("active", a.dataset.sketch === name));
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("s", name);
+    history.replaceState(null, "", url);
+  }
+
+  links.forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault(); // stay on hub page
+      setSketch(a.dataset.sketch);
+    });
+  });
+
+  const initial = new URL(window.location.href).searchParams.get("s")
+          || (links[0] && links[0].dataset.sketch)
+          || "aapslauc";
+
+  setSketch(initial);
+</script>
+</body>
 </html>
